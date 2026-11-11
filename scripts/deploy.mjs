@@ -18,7 +18,8 @@ const remote = git(["remote", "get-url", "origin"]);
 const targetConfig = readFileSync("wrangler.jsonc");
 // An independent deployment verifies its own origin, not the operator's.
 const publicOrigin = JSON.parse(targetConfig).vars?.PUBLIC_ORIGIN;
-if (!publicOrigin) throw new Error("wrangler.jsonc must declare vars.PUBLIC_ORIGIN");
+if (!publicOrigin)
+  throw new Error("wrangler.jsonc must declare vars.PUBLIC_ORIGIN");
 const objectFormat = git(["rev-parse", "--show-object-format"]);
 const files = git(["ls-tree", "-r", "-z", sha])
   .split("\0")
